@@ -52,6 +52,13 @@ pytest -v
 Resultado esperado: **100% dos testes aprovados**, cobrindo os cenários de aceite definidos em
 [`specs/task_analyzer_spec.md`](specs/task_analyzer_spec.md).
 
+### Relatório de cobertura (opcional)
+
+```bash
+pip install pytest-cov
+pytest --cov=src --cov-report=term-missing
+```
+
 ## Uso básico
 
 ```python
