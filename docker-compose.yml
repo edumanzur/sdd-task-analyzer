@@ -1,0 +1,5 @@
+services:
+  tests:
+    build: .
+    image: sdd-task-analyzer:latest
+    command: pytest tests/test_harness.py -v
