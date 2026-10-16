@@ -1,7 +1,8 @@
 # sdd-task-analyzer
 
-Implementação do módulo **TaskAnalyzer**, parte da Fase 2 (Entrega Intermediária) do projeto
-cumulativo de Spec-Driven Development & AI Harness — Bootcamp III.
+Implementação do módulo **TaskAnalyzer** — projeto cumulativo de Spec-Driven Development & AI
+Harness — Bootcamp III. Já na Fase 3 (Entrega Final): DevOps, testes automatizados,
+containerização e governança ética de IA.
 
 O `TaskAnalyzer` recebe uma lista de tarefas e calcula métricas de produtividade: tempo médio de
 conclusão, taxa de atraso e quantidade de tarefas, de forma geral e segmentada por prioridade
@@ -10,6 +11,7 @@ tarefas e não persiste dados.
 
 ## Status do build
 
+[![CI](https://github.com/edumanzur/sdd-task-analyzer/actions/workflows/ci.yml/badge.svg)](https://github.com/edumanzur/sdd-task-analyzer/actions/workflows/ci.yml)
 ![Testes](https://img.shields.io/badge/pytest-100%25%20passed-brightgreen)
 
 ## Estrutura do repositório
@@ -19,7 +21,12 @@ sdd-task-analyzer/
 ├── README.md                 # Este arquivo
 ├── CONTEXT_RULES.md          # Regras de governança de IA (Fase 1)
 ├── pytest.ini                # Configuração do pytest
+├── Dockerfile                 # Imagem para execução isolada da suíte de testes
+├── docker-compose.yml         # Orquestração da execução (docker compose run tests)
 ├── .gitignore
+├── .github/
+│   └── workflows/
+│       └── ci.yml             # Pipeline de integração contínua (GitHub Actions)
 ├── requirements.txt          # Dependências (pytest)
 ├── specs/
 │   └── task_analyzer_spec.md # Especificação SDD / contrato de negócio (Fase 1)
@@ -58,6 +65,25 @@ Resultado esperado: **100% dos testes aprovados**, cobrindo os cenários de acei
 pip install pytest-cov
 pytest --cov=src --cov-report=term-missing
 ```
+
+### Executar via Docker (ambiente isolado)
+
+Não exige Python instalado na máquina — apenas Docker.
+
+```bash
+docker compose run --rm tests
+```
+
+Isso constrói a imagem (`python:3.11-slim`), instala as dependências e executa
+`pytest tests/test_harness.py -v` dentro do container. Resultado esperado: **11/11 testes
+aprovados (100%)**, idêntico à execução local.
+
+### Integração Contínua (CI/CD)
+
+Todo `push` ou Pull Request para as branches `main` e `develop` dispara automaticamente o
+workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) no GitHub Actions: instala as
+dependências e roda a suíte completa de testes em `ubuntu-latest` com Python 3.11. O badge no
+topo deste README reflete o status da última execução.
 
 ## Uso básico
 
@@ -98,5 +124,6 @@ completa da suíte de testes automatizados.
 ## Projeto cumulativo
 
 - **Fase 1** (concluída): Especificação SDD, cenários de aceite, governança de contexto.
-- **Fase 2** (esta entrega): Repositório GitHub, código via IA, Test Harness (pytest), versionamento Git/GitHub.
-- **Fase 3** (próxima entrega): CI/CD com GitHub Actions, Docker, relatório de governança/segurança.
+- **Fase 2** (concluída): Repositório GitHub, código via IA, Test Harness (pytest), versionamento Git/GitHub.
+- **Fase 3** (esta entrega): CI/CD com GitHub Actions, containerização com Docker e relatório
+  técnico de governança e ética de IA.
